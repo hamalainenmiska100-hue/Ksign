@@ -57,7 +57,7 @@ struct SourceAppsView: View {
     @FetchRequest(
         entity: AltSource.entity(),
         sortDescriptors: [NSSortDescriptor(keyPath: \AltSource.name, ascending: true)],
-        animation: .snappy
+        animation: .easeInOut(duration: 0.35)
     ) private var _allSources: FetchedResults<AltSource>
     
     // MARK: Body
@@ -74,7 +74,7 @@ struct SourceAppsView: View {
                     sortAscending: $_sortAscending,
                     onSelect: {self._selectedRoute = $0}
                 )
-                .ignoresSafeArea()
+                .compatTransition()
             } else {
                 if #available(iOS 17, *) {
                     ContentUnavailableView {
@@ -87,6 +87,7 @@ struct SourceAppsView: View {
                 else { ProgressView() }
             }
         }
+        .animation(.easeInOut(duration: 0.35), value: _sources?.count ?? 0)
         .navigationTitle(_navigationTitle)
         .searchable(text: $_searchText, placement: .platform())
         .toolbarTitleMenu {

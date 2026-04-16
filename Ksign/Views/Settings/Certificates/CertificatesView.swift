@@ -20,7 +20,7 @@ struct CertificatesView: View {
 	@FetchRequest(
 		entity: CertificatePair.entity(),
 		sortDescriptors: [NSSortDescriptor(keyPath: \CertificatePair.date, ascending: false)],
-		animation: .snappy
+		animation: .easeInOut(duration: 0.35)
 	) private var certificates: FetchedResults<CertificatePair>
 	
 	//

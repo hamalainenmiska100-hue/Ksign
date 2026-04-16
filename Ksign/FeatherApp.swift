@@ -9,6 +9,7 @@ import SwiftUI
 import Nuke
 import OSLog
 import IDeviceSwift
+import NimbleViews
 
 @main
 struct FeatherApp: App {
@@ -24,13 +25,13 @@ struct FeatherApp: App {
 		WindowGroup {
 			VStack {
                 ExtractHeaderView(extractManager: extractManager)
-                    .transition(.move(edge: .top).combined(with: .opacity))
+                    .compatTransition()
 				DownloadHeaderView(downloadManager: downloadManager)
-					.transition(.move(edge: .top).combined(with: .opacity))
+					.compatTransition()
 				VariedTabbarView()
 					.environment(\.managedObjectContext, storage.context)
 					.onOpenURL(perform: _handleURL)
-					.transition(.move(edge: .top).combined(with: .opacity))
+					.compatTransition()
 			}
 			.animation(.smooth, value: downloadManager.manualDownloads.description)
             .animation(.smooth, value: extractManager.extractItems.description)
